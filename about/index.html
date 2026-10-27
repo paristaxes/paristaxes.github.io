@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Paris, Taxes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-title" href="../index.html">Paris, Taxes</a>
+    <nav class="site-nav">
+      <a href="index.html" aria-current="page">About</a>
+      <a href="../archivo/index.html">Archivo</a>
+      <a href="../temas/index.html">Temas</a>
+    </nav>
+  </header>
+
+  <main class="page-top">
+
+    <!--
+      DOS CINTAS DE FOTOS.
+      Escribe cada foto UNA sola vez: el script las duplica solo para que el bucle no tenga saltos.
+
+      Cada foto es:
+        <div class="foto" style="--ar: 4 / 3; --tono: #d2d2d2"></div>
+      --ar   → proporción (4 / 3 apaisada, 3 / 4 vertical, 1 / 1 cuadrada). La altura es la misma en toda la tira.
+      --tono → gris del marcador de posición (se ignora cuando pones imagen)
+
+      Para poner una foto real:
+        <div class="foto" style="--ar: 4 / 3"><img src="../fotos/mi-foto.jpg" alt=""></div>
+
+      Velocidad: --dur en .cinta (segundos que tarda en dar una vuelta completa; más alto = más lento).
+    -->
+    <div class="cintas">
+
+      <div class="cinta" style="--dur: 70s">
+        <div class="cinta-pista">
+          <div class="foto" style="--ar: 4 / 3"><img src="foto1.jpg" alt=""></div>
+          <div class="foto" style="--ar: 3 / 4"><img src="foto2.jpg" alt=""></div>
+          <div class="foto" style="--ar: 1 / 1"><img src="foto3.jpg" alt=""></div>
+          <div class="foto" style="--ar: 16 / 10"><img src="foto4.jpg" alt=""></div>
+          <div class="foto" style="--ar: 3 / 4"><img src="foto5.jpg" alt=""></div>
+          <div class="foto" style="--ar: 4 / 3"><img src="foto6.jpg" alt=""></div>
+          <div class="foto" style="--ar: 1 / 1"><img src="foto7.jpg" alt=""></div>
+          <div class="foto" style="--ar: 3 / 2"><img src="foto8.jpg" alt=""></div>
+        </div>
+      </div>
+
+      <div class="cinta" style="--dur: 110s">
+        <div class="cinta-pista">
+          <div class="foto" style="--ar: 1 / 1"><img src="foto9.jpg" alt=""></div>
+          <div class="foto" style="--ar: 3 / 2"><img src="foto10.jpg" alt=""></div>
+          <div class="foto" style="--ar: 3 / 4"><img src="foto11.jpg" alt=""></div>
+          <div class="foto" style="--ar: 4 / 3"><img src="foto12.jpg" alt=""></div>
+          <div class="foto" style="--ar: 1 / 1"><img src="foto13.jpg" alt=""></div>
+          <div class="foto" style="--ar: 16 / 10"><img src="foto14.jpg" alt=""></div>
+          <div class="foto" style="--ar: 3 / 4"><img src="foto15.jpg" alt=""></div>
+          <div class="foto" style="--ar: 4 / 3"><img src="foto16.jpg" alt=""></div>
+        </div>
+      </div>
+
+    </div>
+
+    <section class="about-texto">
+      <span class="meta muted">About</span>
+      <p>Hola! Esto es solo un texto de prueba </p>
+      <button type="button" class="shuffle-btn" id="shuffle-btn">Shuffle</button>
+    </section>
+
+  </main>
+
+  <footer class="site-footer meta">
+    <span>22.09.26, Pl. Jussieu 75005</span>
+  </footer>
+
+  <script>
+    // SHUFFLE: las fotos de las cintas se van apilando hasta comerse la pantalla,
+    // mientras el fondo alterna entre blanco y verde brat. Se cierra con el botón, Esc o un clic.
+    (function () {
+      var btn = document.getElementById("shuffle-btn");
+      var reducir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // Ritmo: milisegundos entre cambios. 160 ms = unos 6 cambios por segundo,
+      // por encima del límite de 3 destellos/s que recomiendan las pautas de accesibilidad:
+      // por eso hay un aviso previo. Con "reducir movimiento" va mucho más lento y sin aviso extra.
+      var INTERVALO = reducir ? 1600 : 160;
+      var MAX_FOTOS = 24;
+      var capa, cerrar, timer, previo;
+
+      function originales() {
+        return Array.prototype.slice.call(
+          document.querySelectorAll(".cinta-pista .foto:not([aria-hidden])")
+        );
+      }
+
+      function ratio(f) {
+        var ar = (f.style.getPropertyValue("--ar") || "4 / 3").split("/");
+        var r = parseFloat(ar[0]) / (parseFloat(ar[1]) || 1);
+        return r > 0 ? r : 4 / 3;
+      }
+
+      function anadir(fotos) {
+        var base = fotos[Math.floor(Math.random() * fotos.length)];
+        var c = base.cloneNode(true);
+        c.removeAttribute("aria-hidden");
+        var W = window.innerWidth, H = window.innerHeight;
+        var movil = W < 700;
+        var w = W * (movil ? 0.55 + Math.random() * 0.4 : 0.3 + Math.random() * 0.4);
+        var h = w / ratio(base);
+        if (h > H * 0.9) { h = H * 0.9; w = h * ratio(base); }
+        c.style.width = w + "px";
+        c.style.left = Math.random() * (W - w) + "px";
+        c.style.top = Math.random() * (H - h) + "px";
+        capa.appendChild(c);
+        // Mantén un máximo de fotos para no acumular sin fin
+        var fs = capa.querySelectorAll(".foto");
+        if (fs.length > MAX_FOTOS) capa.removeChild(fs[0]);
+      }
+
+      function abrir() {
+        var fotos = originales();
+        if (!fotos.length) return;
+        previo = previo || document.activeElement;
+        capa = document.createElement("div");
+        capa.className = "shuffle";
+        capa.setAttribute("role", "dialog");
+        capa.setAttribute("aria-modal", "true");
+        capa.setAttribute("aria-label", "Shuffle de fotos");
+        cerrar = document.createElement("button");
+        cerrar.type = "button";
+        cerrar.className = "shuffle-cerrar";
+        cerrar.textContent = "Cerrar";
+        capa.appendChild(cerrar);
+        document.body.appendChild(capa);
+        document.body.style.overflow = "hidden";
+        cerrar.focus();
+
+        var verde = false;
+        function paso() {
+          verde = !verde;
+          capa.classList.toggle("verde", verde);
+          anadir(fotos);
+        }
+        paso();
+        timer = setInterval(paso, INTERVALO);
+
+        capa.addEventListener("click", cierra);
+        document.addEventListener("keydown", tecla);
+      }
+
+      function tecla(e) { if (e.key === "Escape") cierra(); }
+
+      function cierra() {
+        clearInterval(timer);
+        document.removeEventListener("keydown", tecla);
+        if (capa) { capa.remove(); capa = null; }
+        document.body.style.overflow = "";
+        if (previo && previo.focus) previo.focus();
+        previo = null;
+      }
+
+      // Aviso previo de fotosensibilidad: hay que aceptarlo para empezar
+      function aviso() {
+        previo = document.activeElement;
+        var a = document.createElement("div");
+        a.className = "shuffle-aviso";
+        a.setAttribute("role", "alertdialog");
+        a.setAttribute("aria-modal", "true");
+        a.setAttribute("aria-labelledby", "aviso-titulo");
+        a.setAttribute("aria-describedby", "aviso-texto");
+        a.innerHTML =
+          '<div class="shuffle-aviso-caja">' +
+            '<div class="shuffle-aviso-signo" aria-hidden="true">(!)</div>' +
+            '<p class="shuffle-aviso-titulo" id="aviso-titulo">Aviso de fotosensibilidad</p>' +
+            '<p class="shuffle-aviso-texto" id="aviso-texto">A continuación se mostrarán luces intermitentes y cambios rápidos de color e imagen. Puede afectar a personas con fotosensibilidad o epilepsia fotosensible.</p>' +
+            '<div class="shuffle-aviso-botones">' +
+              '<button type="button" data-no>Volver</button>' +
+              '<button type="button" data-ok>Continuar</button>' +
+            '</div>' +
+          '</div>';
+        document.body.appendChild(a);
+        document.body.style.overflow = "hidden";
+        var no = a.querySelector("[data-no]");
+        no.focus(); // el foco empieza en la opción segura
+
+        function quitar() {
+          document.removeEventListener("keydown", esc);
+          a.remove();
+        }
+        function esc(e) { if (e.key === "Escape") volver(); }
+        function volver() {
+          quitar();
+          document.body.style.overflow = "";
+          if (previo && previo.focus) previo.focus();
+          previo = null;
+        }
+        no.addEventListener("click", volver);
+        a.querySelector("[data-ok]").addEventListener("click", function () {
+          quitar();
+          abrir();
+        });
+        document.addEventListener("keydown", esc);
+      }
+
+      btn.addEventListener("click", aviso);
+    })();
+
+    // Duplica las fotos de cada cinta para que el bucle sea continuo y sin saltos
+    (function () {
+      var reducir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var cintas = document.querySelectorAll(".cinta");
+
+      function montar(cinta) {
+        var pista = cinta.querySelector(".cinta-pista");
+        if (!pista._orig) pista._orig = Array.prototype.slice.call(pista.children);
+        // Deja solo las originales y vuelve a medir
+        while (pista.children.length > pista._orig.length) pista.removeChild(pista.lastChild);
+
+        var gap = parseFloat(getComputedStyle(pista).columnGap) || 0;
+        var conjunto = pista.scrollWidth + gap;          // ancho de un juego completo (con el hueco final)
+        if (conjunto <= 0) return;
+
+        // Copias suficientes para cubrir la pantalla y una vuelta más
+        var copias = Math.ceil(cinta.clientWidth / conjunto) + 1;
+        for (var i = 0; i < copias; i++) {
+          pista._orig.forEach(function (f) {
+            var c = f.cloneNode(true);
+            c.setAttribute("aria-hidden", "true");
+            pista.appendChild(c);
+          });
+        }
+        cinta.style.setProperty("--shift", conjunto + "px");
+        // La velocidad (px/s) se mantiene aunque cambie el ancho: --dur es para un juego "tipo"
+        pista.style.animationPlayState = reducir ? "paused" : "";
+      }
+
+      function todo() { cintas.forEach(montar); }
+      window.addEventListener("load", todo);
+      var t; window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(todo, 200); });
+      todo();
+    })();
+  </script>
+</body>
+</html>

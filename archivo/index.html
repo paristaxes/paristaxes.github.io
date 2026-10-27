@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Archivo — Paris, Taxes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="../estilo.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-title" href="../index.html">Paris, Taxes</a>
+    <nav class="site-nav">
+      <a href="../about/index.html">About</a>
+      <a href="index.html" aria-current="page">Archivo</a>
+      <a href="../temas/index.html">Temas</a>
+    </nav>
+  </header>
+
+  <main class="page-top">
+    <div class="section-head meta reveal">
+      <span><span id="titulo">Archivo</span> <a id="vertodo" href="index.html" hidden>— ver todo</a></span>
+      <span id="cuenta">(02)</span>
+    </div>
+
+    <!--
+      Cada entrada es una celda. data-temas lleva sus temas separados por espacios
+      (los mismos identificadores que data-tema en temas/index.html).
+      Copia una celda para añadir una entrada nueva.
+    -->
+    <div class="grid">
+      <a class="cell reveal" data-temas="musica" href="../artics/senales-brutales/index.html">
+        <div class="cell-meta meta"><span>(02)</span><span>Música</span></div>
+        <figure><img src="../artics/senales-brutales/post.jpeg" alt="" loading="lazy" style="view-transition-name: img-senales-brutales"></figure>
+        <h2><span>Señales Brutales, maduración y riesgo.</span></h2>
+        <div class="meta muted">01.10.26</div>
+      </a>
+
+      <a class="cell reveal" data-temas="Vida" href="../artics/donde-estariamos-hoy/index.html">
+        <div class="cell-meta meta"><span>(01)</span><span>Vida</span></div>
+        <figure><img src="../artics/donde-estariamos-hoy/post.jpg" alt="" loading="lazy" style="view-transition-name: img-donde-estariamos-hoy"></figure>
+        <h2><span>¿Dónde estaríamos hoy…?</span></h2>
+        <div class="meta muted">05.11.25</div>
+      </a>
+    </div>
+
+    <p id="vacio" class="meta muted" style="padding: 24px var(--pad);" hidden>Todavía no hay entradas en este tema.</p>
+  </main>
+
+  <footer class="site-footer meta">
+    <span>22.09.26, Pl. Jussieu 75005</span>
+  </footer>
+
+  <script>
+    var NOMBRES = {
+      vida: "Vida", musica: "Música", cine: "Cine", arte: "Arte",
+      social: "Social", politica: "Política", deporte: "Deporte"
+    };
+
+    // Filtro por tema: archivo/index.html?tema=musica
+    (function () {
+      var tema = new URLSearchParams(location.search).get("tema");
+      if (!tema) return;
+      var visibles = 0;
+      document.querySelectorAll(".cell").forEach(function (c) {
+        var temas = (c.dataset.temas || "").split(/\s+/);
+        var ok = temas.indexOf(tema) > -1;
+        c.hidden = !ok;
+        if (ok) visibles++;
+      });
+      document.getElementById("titulo").textContent = "Archivo / " + (NOMBRES[tema] || tema);
+      document.getElementById("cuenta").textContent = "(" + (visibles < 10 ? "0" : "") + visibles + ")";
+      document.getElementById("vertodo").hidden = false;
+      if (visibles === 0) document.getElementById("vacio").hidden = false;
+    })();
+
+    // Aparición suave al hacer scroll
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Temas — Paris, Taxes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-title" href="../index.html">Paris, Taxes</a>
+    <nav class="site-nav">
+      <a href="../about/index.html">About</a>
+      <a href="../archivo/index.html">Archivo</a>
+      <a href="index.html" aria-current="page">Temas</a>
+    </nav>
+  </header>
+
+  <main class="temas">
+    <svg class="cables" aria-hidden="true"></svg>
+
+    <!--
+      Cada tema es un enlace. Para editarlo a mano:
+        data-tema  → identificador (sin tildes), el mismo que usas en data-temas en archivo/index.html
+        data-x/y   → posición del centro, en % de la pantalla
+        --w        → ancho aproximado de la foto
+        --ar       → proporción de la foto (4 / 3 apaisada, 3 / 4 vertical, 1 / 1 cuadrada)
+        --tono     → gris del marcador de posición
+
+      Para poner una foto, sustituye el <span class="nodo-img"></span> por:
+        <span class="nodo-img"><img src="../fotos/musica.jpg" alt=""></span>
+    -->
+
+    <a class="nodo" href="../archivo/index.html?tema=Vida" data-tema="Vida" data-x="22" data-y="30" style="--w: 17vw; --ar: 4 / 3; --tono: #d2d2d2">
+      <span class="nodo-img"><img src="vida.jpg" alt=""></span>
+      <span class="nodo-label">Vida</span>
+    </a>
+
+    <a class="nodo" href="../archivo/index.html?tema=musica" data-tema="musica" data-x="50" data-y="20" style="--w: 11vw; --ar: 3 / 4; --tono: #c4c4c4">
+      <span class="nodo-img"><img src="musica.jpg" alt=""></span>
+      <span class="nodo-label">Música</span>
+    </a>
+
+	<!--
+    <a class="nodo" href="../archivo/index.html?tema=cine" data-tema="cine" data-x="78" data-y="33" style="--w: 14vw; --ar: 4 / 3; --tono: #dcdcdc">
+      <span class="nodo-img"></span>
+      <span class="nodo-label">Cine</span>
+    </a>
+
+    <a class="nodo" href="../archivo/index.html?tema=arte" data-tema="arte" data-x="38" data-y="56" style="--w: 13vw; --ar: 1 / 1; --tono: #cbcbcb">
+      <span class="nodo-img"></span>
+      <span class="nodo-label">Arte</span>
+    </a>
+
+    <a class="nodo" href="../archivo/index.html?tema=social" data-tema="social" data-x="64" data-y="62" style="--w: 16vw; --ar: 4 / 3; --tono: #d8d8d8">
+      <span class="nodo-img"><img src="social.jpg" alt=""></span>
+      <span class="nodo-label">Social</span>
+    </a>
+
+    <a class="nodo" href="../archivo/index.html?tema=politica" data-tema="politica" data-x="14" data-y="68" style="--w: 11vw; --ar: 3 / 4; --tono: #c9c9c9">
+      <span class="nodo-img"></span>
+      <span class="nodo-label">Política</span>
+    </a>
+
+    <a class="nodo" href="../archivo/index.html?tema=deporte" data-tema="deporte" data-x="84" data-y="74" style="--w: 12vw; --ar: 1 / 1; --tono: #d4d4d4">
+      <span class="nodo-img"></span>
+      <span class="nodo-label">Deporte</span>
+    </a>
+	
+	,
+      ["musica", "cine"],
+      ["Vida", "arte"],
+      ["musica", "arte"],
+      ["cine", "social"],
+      ["arte", "social"],
+      ["arte", "politica"],
+      ["social", "deporte"],
+      ["cine", "deporte"]
+	-->
+
+    <div class="temas-pie meta muted">Temas (07)</div>
+  </main>
+
+  <script>
+    // Qué fotos se unen con cable (por data-tema). Edita esta lista a mano.
+    var CABLES = [
+      ["Vida", "musica"]
+    ];
+
+    (function () {
+      var stage = document.querySelector(".temas");
+      var svg = stage.querySelector(".cables");
+      var nodos = Array.prototype.slice.call(stage.querySelectorAll(".nodo"));
+      var porTema = {};
+      var lineas = [];
+      var reducir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var tactil = window.matchMedia("(hover: none)").matches;
+      var NS = "http://www.w3.org/2000/svg";
+
+      nodos.forEach(function (n, i) {
+        porTema[n.dataset.tema] = n;
+        n._t = Math.random() * 1000;                 // tiempo propio de cada foto
+        n._f = 0.7 + (i % 4) * 0.15;                 // velocidad distinta
+        n._cx = 0; n._cy = 0;
+      });
+
+      CABLES.forEach(function (par) {
+        if (!porTema[par[0]] || !porTema[par[1]]) return;
+        var l = document.createElementNS(NS, "line");
+        svg.appendChild(l);
+        lineas.push({ el: l, a: porTema[par[0]], b: porTema[par[1]] });
+      });
+
+      function pintar() {
+        var W = stage.clientWidth, H = stage.clientHeight;
+        var amp = Math.max(8, Math.min(W, H) * 0.018);
+        nodos.forEach(function (n) {
+          var x = parseFloat(n.dataset.x) / 100 * W;
+          var y = parseFloat(n.dataset.y) / 100 * H;
+          var dx = reducir ? 0 : amp * (Math.sin(n._t * 0.0006 * n._f) + 0.5 * Math.sin(n._t * 0.0013 * n._f + 2));
+          var dy = reducir ? 0 : amp * (Math.cos(n._t * 0.0005 * n._f + 1) + 0.5 * Math.cos(n._t * 0.0011 * n._f));
+          n._cx = x + dx; n._cy = y + dy;
+          n.style.transform = "translate(" + n._cx + "px," + n._cy + "px) translate(-50%,-50%)";
+        });
+        lineas.forEach(function (l) {
+          l.el.setAttribute("x1", l.a._cx); l.el.setAttribute("y1", l.a._cy);
+          l.el.setAttribute("x2", l.b._cx); l.el.setAttribute("y2", l.b._cy);
+        });
+      }
+
+      var ultimo = 0;
+      function frame(ts) {
+        var dt = ts - ultimo; ultimo = ts;
+        if (dt > 100) dt = 16;
+        nodos.forEach(function (n) {
+          // La foto bajo el cursor casi se detiene, para poder pulsarla
+          n._t += dt * (n.matches(":hover") ? 0.08 : 1);
+        });
+        pintar();
+        requestAnimationFrame(frame);
+      }
+
+      window.addEventListener("resize", pintar);
+      pintar();
+      if (!reducir) requestAnimationFrame(frame);
+
+      // Móvil: el primer toque enseña el nombre, el segundo abre el tema
+      if (tactil) {
+        nodos.forEach(function (n) {
+          n.addEventListener("click", function (e) {
+            if (!n.classList.contains("activo")) {
+              e.preventDefault();
+              nodos.forEach(function (o) { o.classList.remove("activo"); });
+              n.classList.add("activo");
+            }
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paris, Taxes</title>
+  <meta name="description" content="Paris, Taxes">
+  <link rel="icon" href="favicon.jpg">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="estilo.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-title" href="index.html">Paris, Taxes</a>
+    <nav class="site-nav">
+      <a href="about/index.html">About</a>
+      <a href="archivo/index.html">Archivo</a>
+      <a href="temas/index.html">Temas</a>
+    </nav>
+  </header>
+
+  <!-- Vídeo en bucle: sustituye video.mp4 por el tuyo -->
+  <section class="hero">
+    <video autoplay muted loop playsinline preload="auto" poster="post1.jpg">
+      <source src="video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-cue meta"><span>↓</span> Desliza</div>
+  </section>
+
+  <main>
+    <div class="section-head meta reveal">
+      <span>Últimos archivos</span>
+      <span>(02)</span>
+    </div>
+
+    <div class="grid">
+      <a class="cell reveal" href="artics/senales-brutales/index.html">
+        <div class="cell-meta meta"><span>(02)</span><span>Música</span></div>
+        <figure><img src="artics/senales-brutales/post.jpeg" alt="" loading="lazy" style="view-transition-name: img-senales-brutales"></figure>
+        <h2><span>Señales Brutales, maduración y riesgo.</span></h2>
+        <div class="meta muted">01.10.26</div>
+      </a>
+
+      <a class="cell reveal" href="artics/donde-estariamos-hoy/index.html">
+        <div class="cell-meta meta"><span>(01)</span><span>Vida</span></div>
+        <figure><img src="artics/donde-estariamos-hoy/post.jpg" alt="" loading="lazy" style="view-transition-name: img-donde-estariamos-hoy"></figure>
+        <h2><span>¿Dónde estaríamos hoy…?</span></h2>
+        <div class="meta muted">05.11.25</div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="site-footer meta">
+    <span>22.09.26, Pl. Jussieu 75005</span>
+  </footer>
+
+  <script>
+    // Aparición suave al hacer scroll
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+    // Si el usuario pide menos movimiento, el vídeo se queda en el póster
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      var v = document.querySelector(".hero video");
+      if (v) { v.pause(); v.removeAttribute("autoplay"); }
+    }
+  </script>
+</body>
+</html>
