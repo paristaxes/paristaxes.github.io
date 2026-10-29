@@ -25,17 +25,8 @@
 
     <!--
       DOS CINTAS DE FOTOS.
-      Escribe cada foto UNA sola vez: el script las duplica solo para que el bucle no tenga saltos.
-
-      Cada foto es:
-        <div class="foto" style="--ar: 4 / 3; --tono: #d2d2d2"></div>
-      --ar   → proporción (4 / 3 apaisada, 3 / 4 vertical, 1 / 1 cuadrada). La altura es la misma en toda la tira.
-      --tono → gris del marcador de posición (se ignora cuando pones imagen)
-
-      Para poner una foto real:
-        <div class="foto" style="--ar: 4 / 3"><img src="../fotos/mi-foto.jpg" alt=""></div>
-
-      Velocidad: --dur en .cinta (segundos que tarda en dar una vuelta completa; más alto = más lento).
+      --ar proporción (4 / 3 apaisada, 3 / 4 vertical, 1 / 1 cuadrada)
+      Velocidad: --dur en .cinta (segundos que tarda en dar una vuelta completa).
     -->
     <div class="cintas">
 
@@ -69,7 +60,8 @@
 
     <section class="about-texto">
       <span class="meta muted">About</span>
-      <p>Hola! Esto es solo un texto de prueba </p>
+      <p>Introducida por la maravillosa primera escena de La Dolce Vita de Federico Fellini, Paris, Taxes no busca nada más que ser un diario personal,
+	  un archivo de pensamientos y reflexiones alejado de la crueldad con la que el genio italiano representaba el periodismo en su obra de 1960. </p>
       <button type="button" class="shuffle-btn" id="shuffle-btn">Shuffle</button>
     </section>
 

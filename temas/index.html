@@ -46,11 +46,13 @@
       <span class="nodo-label">Música</span>
     </a>
 
-	<!--
-    <a class="nodo" href="../archivo/index.html?tema=cine" data-tema="cine" data-x="78" data-y="33" style="--w: 14vw; --ar: 4 / 3; --tono: #dcdcdc">
-      <span class="nodo-img"></span>
+	
+    <a class="nodo" href="../archivo/index.html?tema=Cine" data-tema="Cine" data-x="78" data-y="33" style="--w: 14vw; --ar: 4 / 3; --tono: #dcdcdc">
+      <span class="nodo-img"><img src="cine.jpeg" alt=""></span>
       <span class="nodo-label">Cine</span>
     </a>
+	
+	<!--
 
     <a class="nodo" href="../archivo/index.html?tema=arte" data-tema="arte" data-x="38" data-y="56" style="--w: 13vw; --ar: 1 / 1; --tono: #cbcbcb">
       <span class="nodo-img"></span>
@@ -72,24 +74,17 @@
       <span class="nodo-label">Deporte</span>
     </a>
 	
-	,
-      ["musica", "cine"],
-      ["Vida", "arte"],
-      ["musica", "arte"],
-      ["cine", "social"],
-      ["arte", "social"],
-      ["arte", "politica"],
-      ["social", "deporte"],
-      ["cine", "deporte"]
 	-->
 
-    <div class="temas-pie meta muted">Temas (07)</div>
+    <div class="temas-pie meta muted">Temas (03)</div>
   </main>
 
   <script>
-    // Qué fotos se unen con cable (por data-tema). Edita esta lista a mano.
+    // Qué fotos se unen con cable (por data-tema)
     var CABLES = [
-      ["Vida", "musica"]
+      ["Vida", "musica"],
+	  ["musica", "Cine"],
+	  ["Vida", "Cine"]
     ];
 
     (function () {

@@ -25,15 +25,18 @@
   <main class="page-top">
     <div class="section-head meta reveal">
       <span><span id="titulo">Archivo</span> <a id="vertodo" href="index.html" hidden>— ver todo</a></span>
-      <span id="cuenta">(02)</span>
+      <span id="cuenta">(03)</span>
     </div>
+	
+	 <div class="grid">
 
-    <!--
-      Cada entrada es una celda. data-temas lleva sus temas separados por espacios
-      (los mismos identificadores que data-tema en temas/index.html).
-      Copia una celda para añadir una entrada nueva.
-    -->
-    <div class="grid">
+      <a class="cell reveal" data-temas="Cine" href="../artics/tony/index.html">
+        <div class="cell-meta meta"><span>(03)</span><span>Cine</span></div>
+        <figure><img src="../artics/tony/post.jpeg" alt="" loading="lazy" style="view-transition-name: img-tony-2026"></figure>
+        <h2><span>Tony: de la adaptación a la traición</span></h2>
+        <div class="meta muted">28.10.26</div>
+      </a>
+
       <a class="cell reveal" data-temas="musica" href="../artics/senales-brutales/index.html">
         <div class="cell-meta meta"><span>(02)</span><span>Música</span></div>
         <figure><img src="../artics/senales-brutales/post.jpeg" alt="" loading="lazy" style="view-transition-name: img-senales-brutales"></figure>
@@ -58,7 +61,7 @@
 
   <script>
     var NOMBRES = {
-      vida: "Vida", musica: "Música", cine: "Cine", arte: "Arte",
+      vida: "Vida", musica: "Música", Cine: "Cine", arte: "Arte",
       social: "Social", politica: "Política", deporte: "Deporte"
     };
 
