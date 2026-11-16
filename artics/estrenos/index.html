@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Título de la película — Paris, Taxes</title>
+  <title>Preestrenos: You Can See Everything — Paris, Taxes</title>
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Paris, Taxes">
   <meta property="og:locale" content="es_ES">
-  <meta property="og:title" content="Título de la película — Paris, Taxes">
+  <meta property="og:title" content="Preestrenos: You Can See Everything — Paris, Taxes">
   <meta property="og:url" content="https://paristaxes.xyz/artics/estrenos/index.html">
   <meta property="og:image" content="https://paristaxes.xyz/artics/estrenos/post.jpg">
   <meta name="twitter:card" content="summary_large_image">
@@ -17,8 +17,130 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400&display=swap">
   <link rel="stylesheet" href="../../estilo.css">
-  <script>document.documentElement.classList.add("js");</script>
 
+  <style>
+    /* Minimalismo: sin líneas, mucho aire, tarjetas pequeñas.
+       Si quieres, pasa este bloque a estilo.css y bórralo de aquí. */
+
+    /* Más separación entre la foto y el texto */
+    .entrada figure { margin-bottom: clamp(56px, 8vw, 50px); }
+    .entrada-texto .indice { margin-bottom: clamp(56px, 8vw, 130px); }
+
+    /* Comunidades: sin líneas y mucho espacio alrededor */
+    .region,
+    .region:last-child { border: 0; }
+    .region { margin-bottom: clamp(56px, 8vw, 50px); }
+    .region:last-child { margin-bottom: 0; }
+
+    .region summary {
+      padding: 0 0 clamp(28px, 4vw, 40px);
+    }
+    .entrada-texto .region-nombre {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .region-nombre .muted { font-size: 14px; }
+    .flecha { color: var(--muted); font-size: 14px; }
+    .region summary:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+
+    /* Rejilla de sesiones: tarjetas pequeñas y separadas */
+    .sesiones {
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
+      gap: 12px;
+      padding: 0;
+    }
+
+    /* Tarjeta: sin borde, solo un gris casi blanco */
+    .sesion,
+    .sesion:hover,
+    .sesion.con-equipo,
+    .sesion.con-equipo:hover,
+    .sesion.completo:hover { border: 0; }
+    .sesion {
+      gap: 2px;
+      padding: 14px 16px;
+      border-radius: 6px;
+      background: #f7f7f7;
+    }
+    .sesion h3 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    /* Fecha y hora con icono */
+    .sesion-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+      margin-top: 4px;
+      font-size: 12px;
+    }
+    .sesion-info span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .sesion-info svg {
+      width: 13px;
+      height: 13px;
+      flex: none;
+      fill: none;
+      stroke: var(--muted);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Marca opcional "con equipo del film" */
+    .equipo-ico {
+      width: 14px;
+      height: 14px;
+      flex: none;
+      fill: none;
+      stroke: #d99a00;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Botón pequeño, sin borde, a la izquierda */
+    .entrada-texto .btn-comprar {
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: 14px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.3;
+      text-align: left;
+      border: 0;
+      border-radius: 4px;
+      background: #fff;
+      color: var(--ink);
+    }
+    .entrada-texto .btn-comprar:hover,
+    .entrada-texto .btn-comprar:focus-visible {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    /* Sesión completa: atenuada y sin botón */
+    .sesion.completo h3,
+    .sesion.completo .sesion-info { opacity: 0.45; }
+    .entrada-texto .btn-comprar.agotado,
+    .entrada-texto .btn-comprar.agotado:hover {
+      padding-left: 0;
+      color: var(--muted);
+      background: none;
+      cursor: default;
+      user-select: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -35,23 +157,249 @@
     <article class="entrada">
 
       <div class="entrada-meta meta">
-        <span class="muted" id="fecha">16.11.26</span>
+        <span class="muted">16.11.26</span>
         <a href="../../archivo/index.html?tema=Cine">Cine</a>
       </div>
 
-      <h1 id="titulo">Título de la película</h1>
+      <h1>Preestrenos: You Can See Everything</h1>
 
-      <!-- Si no hay post.jpg, la imagen se quita sola -->
       <figure>
-        <img src="post.jpg" alt="" style="view-transition-name: img-estrenos" onerror="this.closest('figure').remove()">
+        <img src="post.jpg" alt="" style="view-transition-name: img-estrenos">
       </figure>
 
       <div class="entrada-texto">
-        <p id="intro" style="margin-bottom: 30px;">Pases de estreno por comunidad autónoma. Elige la tuya y compra la entrada en la web del cine.</p>
 
-        <ul class="indice meta" id="indice"></ul>
-        <div id="regiones"></div>
-      </div>
+		<p>Treinta y cuatro días antes de ingresar en una prisión federal para cumplir su condena por el fraude millonario de su empresa Theranos, la fundadora Elizabeth Holmes y su pareja, Billy Evans, invitan a un equipo de filmación escéptico a documentar su vida cotidiana.
+		</p>
+
+		<p>Lo que comienza como un retrato íntimo de una figura caída en desgracia se transforma a lo largo de tres años en un viaje surrealista e incómodo que explora los límites de la verdad, la manipulación mediática, la actuación y la confianza entre el sujeto y los cineastas.</p>
+		</p>
+		
+		<p>Anunciada para estrenarse en España el 25 de diciembre, estos son los cines en los que la distribuidora
+		Avalon ha anunciado preestrenos del aclamado documental de Nathan Fielder.</p>
+
+
+        <!-- ============================================================
+             PLANTILLA DE COMUNIDAD (cópiala entera para añadir otra)
+             - Cambia id, nombre y el número entre paréntesis (nº de sesiones).
+             - Quita el atributo "open" si quieres que empiece plegada.
+
+        <details class="region" id="ID-COMUNIDAD" open>
+          <summary>
+            <h2 class="region-nombre">Nombre de la comunidad <span class="muted">(N)</span></h2>
+            <span class="flecha" aria-hidden="true">↓</span>
+          </summary>
+          <div class="sesiones">
+             ...tarjetas de sesión aquí...
+          </div>
+        </details>
+
+             PLANTILLA DE SESIÓN (cópiala dentro de <div class="sesiones">)
+             - Para una sesión con equipo, añade la clase "con-equipo" al div
+               y descomenta el <svg class="equipo-ico"> del título.
+             - Pon tu enlace de compra en el href del botón.
+
+        <div class="sesion">
+          <h3>Nombre del cine</h3>
+          <div class="sesion-info meta">
+            <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>16/11/2026</span>
+            <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>20:30</span>
+          </div>
+          <a class="btn-comprar" href="PEGA-AQUÍ-EL-ENLACE" target="_blank" rel="noopener">Comprar entradas</a>
+        </div>
+
+             SESIÓN COMPLETA: añade la clase "completo" al div y cambia el
+             enlace por este span (sin href):
+
+          <span class="btn-comprar agotado" aria-disabled="true">Completo</span>
+
+             ============================================================ -->
+
+
+
+        <!-- ===================== COMUNIDAD DE MADRID ===================== -->
+        <details class="region" id="madrid" open>
+          <summary>
+            <h2 class="region-nombre">Comunidad de Madrid <span class="muted">(19)</span></h2>
+            <span class="flecha" aria-hidden="true">↓</span>
+          </summary>
+          <div class="sesiones">
+		  
+		  <div class="sesion completo">
+              <h3>Yelmo TresAguas, Alcorcón</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>??:??</span>
+              </div>
+              <span class="btn-comprar agotado" aria-disabled="true">No disponible</span>
+            </div>
+			
+			<div class="sesion">
+              <h3>Odeon Sambil, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>20:00</span>
+              </div>
+              <a class="btn-comprar" href="https://odeonmulticines.com/odeon-sambil/producto/puedes-verlo-todo-you-can-see-everything" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion">
+              <h3>Cines Embajadores, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>19:05</span>
+              </div>
+              <a class="btn-comprar" href="https://cinesembajadores.es/pelicula/you-can-see-everything-puedes-verlo-todo-vose/?ciudad=madrid" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion">
+              <h3>Cines Embajadores, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>19:15</span>
+              </div>
+              <a class="btn-comprar" href="https://cinesembajadores.es/pelicula/you-can-see-everything-puedes-verlo-todo-vose/?ciudad=madrid" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion">
+              <h3>Cines Embajadores Río, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>19:10</span>
+              </div>
+              <a class="btn-comprar" href="https://cinesembajadores.es/pelicula/you-can-see-everything-puedes-verlo-todo-vose/?ciudad=madrid" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion completo">
+              <h3>Yelmo Ideal, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>??:??</span>
+              </div>
+              <span class="btn-comprar agotado" aria-disabled="true">No disponible</span>
+            </div>
+			
+			<div class="sesion completo">
+              <h3>Yelmo La Vaguada, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>??:??</span>
+              </div>
+              <span class="btn-comprar agotado" aria-disabled="true">No disponible</span>
+            </div>
+			
+			<div class="sesion completo">
+              <h3>Yelmo Luxury Palafox, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>??:??</span>
+              </div>
+              <span class="btn-comprar agotado" aria-disabled="true">No disponible</span>
+            </div>
+			
+			<div class="sesion completo">
+              <h3>Yelmo Plenilunio, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>??:??</span>
+              </div>
+              <span class="btn-comprar agotado" aria-disabled="true">No disponible</span>
+            </div>
+			
+			<div class="sesion">
+              <h3>Golem Madrid, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>19:00</span>
+              </div>
+              <a class="btn-comprar" href="https://golmadrid.admit-one.eu/?p=details&eventCode=117170" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion">
+              <h3>Mk2 Cine Paz, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>??:??</span>
+              </div>
+              <a class="btn-comprar" href="https://www.cinepazmadrid.es/es/evento/730/puedes-verlo-todo-you-can-see-everything" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion">
+              <h3>Mk2 Palacio de Hielo, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>20:15</span>
+              </div>
+              <a class="btn-comprar" href="https://www.mk2palaciodehielo.es/es/detalles/6308/puedes-verlo-todo" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion">
+              <h3>Odeón Alcalá Norte, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>20:00</span>
+              </div>
+              <a class="btn-comprar" href="https://odeonmulticines.com/odeon-alcala-norte/producto/puedes-verlo-todo-you-can-see-everything" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion">
+              <h3>Renoir Retiro, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>18:30</span>
+              </div>
+              <a class="btn-comprar" href="https://www.cinesrenoir.com/pelicula/puedes-verlo-todo/eventos/" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion">
+              <h3>Renoir Princesa, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>19:00</span>
+              </div>
+              <a class="btn-comprar" href="https://www.cinesrenoir.com/pelicula/puedes-verlo-todo/eventos/" target="_blank" rel="noopener">Comprar entradas</a>
+            </div>
+			
+			<div class="sesion completo">
+              <h3>Cines Verdi, Madrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>20:30</span>
+              </div>
+              <span class="btn-comprar agotado" aria-disabled="true">Completo</span>
+            </div>
+			
+			
+			<div class="sesion completo">
+              <h3>Yelmo Lexis Luxury, Pozuelo de Alarcón</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>??:??</span>
+              </div>
+              <span class="btn-comprar agotado" aria-disabled="true">No disponible</span>
+            </div>
+			
+			<div class="sesion completo">
+              <h3>Yelmo Rivas H2O, Rivas-Vaciamadrid</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>??:??</span>
+              </div>
+              <span class="btn-comprar agotado" aria-disabled="true">No disponible</span>
+            </div>
+			
+			<div class="sesion completo">
+              <h3>Yelmo Plaza Norte 2, San Sebastián de los Reyes</h3>
+              <div class="sesion-info meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>26/11/2026</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>??:??</span>
+              </div>
+              <span class="btn-comprar agotado" aria-disabled="true">No disponible</span>
+            </div>
+
+          </div>
+        </details>
+
 
       <a class="entrada-volver meta" href="../../archivo/index.html">← Archivo</a>
 
@@ -59,94 +407,18 @@
   </main>
 
   <footer class="site-footer meta">
-    <span id="pie">16.11.26, Lugar</span>
+    <span>16.11.26, Pl. Jussieu 75005</span>
   </footer>
 
   <script>
-    /* ==================================================================
-       AQUÍ EDITAS TÚ EL CONTENIDO
-       - Cada comunidad: { nombre, cines: [...] }
-       - Cada cine: { nombre, fecha, hora, url, etiqueta (opcional) }
-       - "url" = enlace externo donde se compran las entradas
-       - Las comunidades sin cines no se muestran
-       ================================================================== */
-    var PELICULA = {
-      titulo: "Título de la película",
-      intro:  "Pases de estreno por comunidad autónoma. Elige la tuya y compra la entrada en la web del cine.",
-      fecha:  "16.11.26",
-      pie:    "16.11.26, Lugar"
-    };
-
-    var COMUNIDADES = [
-      { nombre: "Andalucía", cines: [
-        { nombre: "Cine Ejemplo Sevilla", fecha: "16.11.26", hora: "20:30", url: "https://ejemplo.com/sevilla", etiqueta: "VOSE" },
-        { nombre: "Cine Ejemplo Málaga",  fecha: "17.11.26", hora: "19:45", url: "https://ejemplo.com/malaga" },
-        { nombre: "Cine Ejemplo Granada", fecha: "17.11.26", hora: "20:15", url: "https://ejemplo.com/granada" }
-      ]},
-      { nombre: "Aragón", cines: [
-        { nombre: "Cine Ejemplo Zaragoza", fecha: "16.11.26", hora: "20:00", url: "https://ejemplo.com/zaragoza" }
-      ]},
-      { nombre: "Asturias", cines: [] },
-      { nombre: "Cataluña", cines: [
-        { nombre: "Cine Ejemplo Barcelona", fecha: "16.11.26", hora: "20:30", url: "https://ejemplo.com/barcelona" },
-        { nombre: "Cine Ejemplo Girona",    fecha: "18.11.26", hora: "21:00", url: "https://ejemplo.com/girona" }
-      ]},
-      { nombre: "Comunidad de Madrid", cines: [
-        { nombre: "Cine Ejemplo Callao",  fecha: "16.11.26", hora: "20:30", url: "https://ejemplo.com/callao", etiqueta: "VOSE" },
-        { nombre: "Cine Ejemplo Moncloa", fecha: "17.11.26", hora: "20:15", url: "https://ejemplo.com/moncloa" }
-      ]}
-      /* Más: Canarias, Cantabria, Castilla y León, Castilla-La Mancha,
-         Comunidad Valenciana, Extremadura, Galicia, Islas Baleares, La Rioja,
-         Murcia, Navarra, País Vasco, Ceuta, Melilla... */
-    ];
-
-    /* ================= A partir de aquí no hace falta tocar ================= */
-    function esc(s) {
-      return String(s).replace(/[&<>"']/g, function (c) {
-        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
-      });
+    // Si pulsas una comunidad del índice y su bloque está plegado, se abre solo
+    function abrirDesdeHash() {
+      var id = decodeURIComponent(location.hash.slice(1));
+      var el = id && document.getElementById(id);
+      if (el && el.tagName === "DETAILS") el.open = true;
     }
-    function slug(s) {
-      return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-    }
-
-    document.title = PELICULA.titulo + " — Paris, Taxes";
-    document.getElementById("titulo").textContent = PELICULA.titulo;
-    document.getElementById("intro").textContent = PELICULA.intro;
-    document.getElementById("fecha").textContent = PELICULA.fecha;
-    document.getElementById("pie").textContent = PELICULA.pie;
-
-    var activas = COMUNIDADES.filter(function (c) { return c.cines && c.cines.length; });
-
-    document.getElementById("indice").innerHTML = activas.map(function (c) {
-      return '<li><a href="#' + slug(c.nombre) + '">' + esc(c.nombre) + "</a></li>";
-    }).join("");
-
-    document.getElementById("regiones").innerHTML = activas.map(function (c) {
-      return '<details class="region" id="' + slug(c.nombre) + '" open>' +
-        "<summary>" +
-          '<h2 class="region-nombre">' + esc(c.nombre) + '<span class="muted">(' + c.cines.length + ")</span></h2>" +
-          '<span class="flecha meta" aria-hidden="true">↓</span>' +
-        "</summary>" +
-        '<div class="sesiones">' +
-          c.cines.map(function (k) {
-            return '<div class="sesion">' +
-              "<h3>" + esc(k.nombre) +
-                (k.etiqueta ? '<span class="etq meta muted">' + esc(k.etiqueta) + "</span>" : "") + "</h3>" +
-              '<div class="meta muted">' + esc(k.fecha) + " · " + esc(k.hora) + "</div>" +
-              '<a class="btn-comprar" href="' + esc(k.url) + '" target="_blank" rel="noopener noreferrer">Comprar entradas</a>' +
-            "</div>";
-          }).join("") +
-        "</div>" +
-      "</details>";
-    }).join("");
-
-    /* Si entras con #comunidad en la URL, abre esa sección */
-    if (location.hash) {
-      var d = document.getElementById(location.hash.slice(1));
-      if (d && d.tagName === "DETAILS") d.open = true;
-    }
+    window.addEventListener("hashchange", abrirDesdeHash);
+    abrirDesdeHash();
   </script>
 </body>
 </html>
