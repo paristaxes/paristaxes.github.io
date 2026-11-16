@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Título de la película — Paris, Taxes</title>
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Paris, Taxes">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Título de la película — Paris, Taxes">
+  <meta property="og:url" content="https://paristaxes.xyz/artics/estrenos/index.html">
+  <meta property="og:image" content="https://paristaxes.xyz/artics/estrenos/post.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="../../estilo.css">
+  <script>document.documentElement.classList.add("js");</script>
+
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-title" href="../../index.html">Paris, Taxes</a>
+    <nav class="site-nav">
+      <a href="../../about/index.html">About</a>
+      <a href="../../archivo/index.html">Archivo</a>
+      <a href="../../temas/index.html">Temas</a>
+    </nav>
+  </header>
+
+  <main class="page-top">
+    <article class="entrada">
+
+      <div class="entrada-meta meta">
+        <span class="muted" id="fecha">16.11.26</span>
+        <a href="../../archivo/index.html?tema=Cine">Cine</a>
+      </div>
+
+      <h1 id="titulo">Título de la película</h1>
+
+      <!-- Si no hay post.jpg, la imagen se quita sola -->
+      <figure>
+        <img src="post.jpg" alt="" style="view-transition-name: img-estrenos" onerror="this.closest('figure').remove()">
+      </figure>
+
+      <div class="entrada-texto">
+        <p id="intro" style="margin-bottom: 30px;">Pases de estreno por comunidad autónoma. Elige la tuya y compra la entrada en la web del cine.</p>
+
+        <ul class="indice meta" id="indice"></ul>
+        <div id="regiones"></div>
+      </div>
+
+      <a class="entrada-volver meta" href="../../archivo/index.html">← Archivo</a>
+
+    </article>
+  </main>
+
+  <footer class="site-footer meta">
+    <span id="pie">16.11.26, Lugar</span>
+  </footer>
+
+  <script>
+    /* ==================================================================
+       AQUÍ EDITAS TÚ EL CONTENIDO
+       - Cada comunidad: { nombre, cines: [...] }
+       - Cada cine: { nombre, fecha, hora, url, etiqueta (opcional) }
+       - "url" = enlace externo donde se compran las entradas
+       - Las comunidades sin cines no se muestran
+       ================================================================== */
+    var PELICULA = {
+      titulo: "Título de la película",
+      intro:  "Pases de estreno por comunidad autónoma. Elige la tuya y compra la entrada en la web del cine.",
+      fecha:  "16.11.26",
+      pie:    "16.11.26, Lugar"
+    };
+
+    var COMUNIDADES = [
+      { nombre: "Andalucía", cines: [
+        { nombre: "Cine Ejemplo Sevilla", fecha: "16.11.26", hora: "20:30", url: "https://ejemplo.com/sevilla", etiqueta: "VOSE" },
+        { nombre: "Cine Ejemplo Málaga",  fecha: "17.11.26", hora: "19:45", url: "https://ejemplo.com/malaga" },
+        { nombre: "Cine Ejemplo Granada", fecha: "17.11.26", hora: "20:15", url: "https://ejemplo.com/granada" }
+      ]},
+      { nombre: "Aragón", cines: [
+        { nombre: "Cine Ejemplo Zaragoza", fecha: "16.11.26", hora: "20:00", url: "https://ejemplo.com/zaragoza" }
+      ]},
+      { nombre: "Asturias", cines: [] },
+      { nombre: "Cataluña", cines: [
+        { nombre: "Cine Ejemplo Barcelona", fecha: "16.11.26", hora: "20:30", url: "https://ejemplo.com/barcelona" },
+        { nombre: "Cine Ejemplo Girona",    fecha: "18.11.26", hora: "21:00", url: "https://ejemplo.com/girona" }
+      ]},
+      { nombre: "Comunidad de Madrid", cines: [
+        { nombre: "Cine Ejemplo Callao",  fecha: "16.11.26", hora: "20:30", url: "https://ejemplo.com/callao", etiqueta: "VOSE" },
+        { nombre: "Cine Ejemplo Moncloa", fecha: "17.11.26", hora: "20:15", url: "https://ejemplo.com/moncloa" }
+      ]}
+      /* Más: Canarias, Cantabria, Castilla y León, Castilla-La Mancha,
+         Comunidad Valenciana, Extremadura, Galicia, Islas Baleares, La Rioja,
+         Murcia, Navarra, País Vasco, Ceuta, Melilla... */
+    ];
+
+    /* ================= A partir de aquí no hace falta tocar ================= */
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+    function slug(s) {
+      return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    }
+
+    document.title = PELICULA.titulo + " — Paris, Taxes";
+    document.getElementById("titulo").textContent = PELICULA.titulo;
+    document.getElementById("intro").textContent = PELICULA.intro;
+    document.getElementById("fecha").textContent = PELICULA.fecha;
+    document.getElementById("pie").textContent = PELICULA.pie;
+
+    var activas = COMUNIDADES.filter(function (c) { return c.cines && c.cines.length; });
+
+    document.getElementById("indice").innerHTML = activas.map(function (c) {
+      return '<li><a href="#' + slug(c.nombre) + '">' + esc(c.nombre) + "</a></li>";
+    }).join("");
+
+    document.getElementById("regiones").innerHTML = activas.map(function (c) {
+      return '<details class="region" id="' + slug(c.nombre) + '" open>' +
+        "<summary>" +
+          '<h2 class="region-nombre">' + esc(c.nombre) + '<span class="muted">(' + c.cines.length + ")</span></h2>" +
+          '<span class="flecha meta" aria-hidden="true">↓</span>' +
+        "</summary>" +
+        '<div class="sesiones">' +
+          c.cines.map(function (k) {
+            return '<div class="sesion">' +
+              "<h3>" + esc(k.nombre) +
+                (k.etiqueta ? '<span class="etq meta muted">' + esc(k.etiqueta) + "</span>" : "") + "</h3>" +
+              '<div class="meta muted">' + esc(k.fecha) + " · " + esc(k.hora) + "</div>" +
+              '<a class="btn-comprar" href="' + esc(k.url) + '" target="_blank" rel="noopener noreferrer">Comprar entradas</a>' +
+            "</div>";
+          }).join("") +
+        "</div>" +
+      "</details>";
+    }).join("");
+
+    /* Si entras con #comunidad en la URL, abre esa sección */
+    if (location.hash) {
+      var d = document.getElementById(location.hash.slice(1));
+      if (d && d.tagName === "DETAILS") d.open = true;
+    }
+  </script>
+</body>
+</html>

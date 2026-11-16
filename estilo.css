@@ -640,6 +640,128 @@ input {
   cursor: pointer;
 }
 
+/* ---------- Estrenos: comunidades, tarjetas de cine y botón de compra ---------- */
+.indice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin: 0 0 clamp(28px, 4vw, 44px);
+  padding: 0;
+  list-style: none;
+}
+
+.entrada-texto .indice a {
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.entrada-texto .indice a:hover {
+  background-size: 100% 1px;
+}
+
+.region {
+  border-top: 1px solid var(--line);
+}
+
+.region:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.region summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 20px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.region summary::-webkit-details-marker {
+  display: none;
+}
+
+.region-nombre {
+  margin: 0;
+  font-size: clamp(20px, 2.4vw, 24px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.region-nombre .muted {
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.flecha {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.region[open] .flecha {
+  transform: rotate(180deg);
+}
+
+/* Rejilla de tarjetas: 2 columnas en la columna de la entrada, 1 en móvil */
+.sesiones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+  padding: 0 0 clamp(28px, 4vw, 44px);
+}
+
+/* Rectángulo de cada cine */
+.sesion {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  transition: border-color 0.3s ease;
+}
+
+.sesion:hover {
+  border-color: var(--ink);
+}
+
+.sesion h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.sesion .etq {
+  font-weight: 400;
+  margin-left: 6px;
+}
+
+/* Rectángulo del botón de compra */
+.entrada-texto .btn-comprar {
+  display: block;
+  margin-top: 16px;
+  padding: 12px 14px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.entrada-texto .btn-comprar:hover,
+.entrada-texto .btn-comprar:focus-visible {
+  background: var(--ink);
+  color: #fff;
+}
+
 /* ---------- Accesibilidad ---------- */
 @media (prefers-reduced-motion: reduce) {
   html {
